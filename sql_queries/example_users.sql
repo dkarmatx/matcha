@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS User_friends;
 DROP TABLE IF EXISTS Users;
 DROP DOMAIN IF EXISTS email_dom;
 DROP DOMAIN IF EXISTS gender_dom;
@@ -5,7 +6,7 @@ DROP DOMAIN IF EXISTS sexpref_dom;
 
 CREATE DOMAIN email_dom AS
     varchar(1024)
-    CHECK (VALUE ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+([.][A-Za-z]+)+$');
+    CONSTRAINT valid_email CHECK (VALUE ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9_-]+([.][A-Za-z_-]+)+$');
 COMMENT ON DOMAIN email_dom IS 'Type of email with auto cheking';
 
 CREATE DOMAIN gender_dom AS
@@ -76,8 +77,20 @@ INSERT INTO users (
     2, 2
 );
 
+CREATE TABLE IF NOT EXISTS User_friends (
+    id          bigserial       UNIQUE NOT NULL,
+    user_id     bigint          NOT NULL,
+    friend_id   bigint          NOT NULL,
 
-SELECT * FROM Users;
+    PRIMARY KEY (id, user_id, friend_id),
+    FOREIGN KEY (user_id)       REFERENCES Users (id) ON DELETE CASCADE,
+    FOREIGN KEY (friend_id)     REFERENCES Users (id) ON DELETE CASCADE
+);
 
-SELECT id, nickname, birthdate, gender FROM Users
-    WHERE ((gender & 2) <> 0) AND ((sex_prefs & 1) <> 0);
+INSERT INTO User_Friends (user_id, friend_id) VALUES
+(1, 4),
+(2, 1),
+(4, 1),
+(3, 5),
+(1, 5),
+(5, 4);
