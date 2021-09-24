@@ -1,5 +1,6 @@
 github.com/andybalholm/brotli v1.0.2 h1:JKnhI/XQ75uFBTiuzXpzFrUriDPiZjlOSzh6wXogP0E=
 github.com/andybalholm/brotli v1.0.2/go.mod h1:loMXtMfwqflxFJPmdbJO0a3KNoPuLBgiu3qAvBg8x/Y=
+github.com/atreugo/mock v0.0.0-20200601091009-13c275b330b0 h1:IVqe9WnancrkICl5HqEfGjrnkQ4+VsU5fodcuFVoG/A=
 github.com/atreugo/mock v0.0.0-20200601091009-13c275b330b0/go.mod h1:HTHAc8RoZXMVTr6wZQN7Jjm3mYMnbfkqqKdnQgSoe9o=
 github.com/fasthttp/router v1.4.2 h1:86sjHypRa6hWzFkPa0mwgG06gHGNwkDpKcAJzGMNBk4=
 github.com/fasthttp/router v1.4.2/go.mod h1:0y2RyHYZW9vtlDHtYa6Kd8Xb4nGQG8qpb8qgB9rAd20=
