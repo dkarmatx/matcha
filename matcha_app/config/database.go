@@ -47,3 +47,13 @@ func GetDSN() string {
 		dbconfig.Password,
 		dbconfig.SSLMode)
 }
+
+// Get database driver name string
+func GetDBDriverName() string {
+	return "postgres"
+}
+
+// Get databse schema realm name string
+func GetDBSchemaName() string {
+	return GetDBConfig().User
+}
