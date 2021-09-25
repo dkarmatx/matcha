@@ -4,7 +4,14 @@ import (
 	"matcha/dbcon"
 )
 
-// type UserList []User
+/*
+ *	SelectByColumnName() - load by some column (WHERE)
+ *  SelectAll() - load all instances (if list model)
+ *  Insert() - insert new instance (default, usualy without serial values or auto computed values)
+ *	InsertWithColumnName() - insert by specified column value (for example id)
+ *  Update() - Upate value
+ *  DeleteByColumnName() - don't
+ */
 
 type User struct {
 	Id        int64  `json:"id"`
@@ -27,21 +34,28 @@ func (u *User) Insert() error {
 	return err
 }
 
-// func (ulst_ptr *UserList) Load() error {
-// 	ulst := UserList(make([]User, 0))
+func (u *User) DeleteById() error {
+	_, err := dbcon.Get().Exec(`DELETE FROM users WHERE user_id = $1`, u.Id)
+	return err
+}
 
-// 	rows, err := dbcon.Get().Query(`
-// 		SELECT user_id, user_nickname, user_email, bio, birthdate, gender, sexpref
-// 		FROM users
-// 	`)
+type UserList []User
 
-// 	for rows.Next() && err == nil {
-// 		var u User
-// 		err = rows.Scan(&u.Id, &u.Name, &u.Email, &u.Bio, &u.BirthDate, &u.Gender, &u.SexPref)
-// 		ulst = append(ulst, u)
-// 	}
-// 	rows.Close()
+func (ulst_ptr *UserList) SelectAll() error {
+	ulst := UserList(make([]User, 0))
 
-// 	*ulst_ptr = ulst
-// 	return err
-// }
+	rows, err := dbcon.Get().Query(`
+		SELECT user_id, user_nickname, user_email, bio, birthdate, gender, sexpref
+		FROM users
+	`)
+
+	for rows.Next() && err == nil {
+		var u User
+		err = rows.Scan(&u.Id, &u.Name, &u.Email, &u.Bio, &u.BirthDate, &u.Gender, &u.SexPref)
+		ulst = append(ulst, u)
+	}
+	rows.Close()
+
+	*ulst_ptr = ulst
+	return err
+}
