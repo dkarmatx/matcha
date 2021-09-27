@@ -15,5 +15,8 @@ type ResponseStatus struct {
 func SetHandlers(app *atreugo.Atreugo) {
 	debug_router := app.NewGroupPath("/debug")
 
-	debug_router.GET("/ping_database", HandlePingDB)
+	debug_router.GET("/ping_db", HandlePingDB)
+	debug_router.POST("/user/add", HandleUserCreate)
+	debug_router.GET("/user/list", HandleUserListing)
+	debug_router.DELETE("/user/{id}", HandleUserDelete)
 }

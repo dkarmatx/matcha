@@ -8,7 +8,7 @@ import (
 )
 
 func HandlePingDB(ctx *atreugo.RequestCtx) error {
-	resp := ResponseStatus{Success: true, Message: "", RequestedAt: time.Now()}
+	resp := ResponseStatus{Success: true, RequestedAt: time.Now()}
 
 	err := dbcon.Get().Ping()
 	if err != nil {
