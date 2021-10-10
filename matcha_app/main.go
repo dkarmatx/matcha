@@ -1,6 +1,7 @@
 package main
 
 import (
+	"matcha/api"
 	"matcha/dbcon"
 	"matcha/debug_api"
 	"matcha/install"
@@ -27,6 +28,8 @@ func main() {
 
 	// Routing: `/debug/*`
 	debug_api.SetHandlers(app)
+	// Routing: `/api/v1/*`
+	api.SetupRouters(app)
 
 	// Launching application's listener
 	if err := app.ListenAndServe(); err != nil {

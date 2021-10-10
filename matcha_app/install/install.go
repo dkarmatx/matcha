@@ -49,7 +49,8 @@ func init() {
 	fmap := map[string]string{
 		"Schema": config.GetDBSchemaName(),
 	}
-
+	// INSERT INTO users VALUES (2, 'Fedor', 'fedor@yandex.ru', '', '1999-02-19', 1, 2, decode('17023353311ba2c3067bf815e77b5ea72a6bd0c140907990ad2cce5087a8c175', 'hex'), 'abcd') ;
+	// fedor123
 	var err error
 	__SCHEMA_INIT_QUERY, err = proccessTemplate(`
 		DROP SCHEMA IF EXISTS {{.Schema}} CASCADE ;
@@ -81,8 +82,20 @@ func init() {
 		    birthdate       date            ,
 		    gender          gender_dom      ,
 		    sexpref         sexpref_dom     ,
+
+		    pass_hash       bytea           ,
+		    pass_salt       bytea           ,
 		
 		    PRIMARY KEY (user_id, user_nickname, user_email)
+		);
+
+		CREATE TABLE {{.Schema}}.auth_tokens (
+		    value       bigint          UNIQUE NOT NULL,
+		    expires_at  time            ,
+		    user_id     bigint          ,
+
+		    PRIMARY KEY (value),
+		    FOREIGN KEY (user_id)       REFERENCES users (user_id) ON DELETE CASCADE
 		);
 		
 		CREATE TABLE {{.Schema}}.user_connections (
