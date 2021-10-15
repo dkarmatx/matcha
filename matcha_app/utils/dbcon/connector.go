@@ -20,7 +20,6 @@ func Get() *sql.DB {
 			panic("Database Connector: Open() Error: " + err.Error())
 		}
 	}
-
 	return c
 }
 

@@ -8,7 +8,7 @@ import (
 var globalLogger *log.Logger
 
 func init() {
-	globalLogger = log.New(os.Stdout, "GLOBAL", log.LstdFlags)
+	globalLogger = log.New(os.Stdout, "Global:\t", log.LstdFlags)
 }
 
 // Get global logger singleton instance
