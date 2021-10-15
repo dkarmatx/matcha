@@ -1,9 +1,61 @@
 package config
 
-import (
-	"fmt"
-	"os"
-)
+import "os"
+
+type DBConfig struct {
+	Host     string
+	Port     string
+	DBName   string
+	User     string
+	Password string
+	SSLMode  string
+	Schema   string
+}
+
+var databaseConfig DBConfig
+
+func init() {
+	databaseConfig.Host = getEnvDefault("POSTGRES_HOST", "localhost")
+	databaseConfig.Port = getEnvDefault("POSTGRES_PORT", "5432")
+	databaseConfig.User = getEnvDefault("POSTGRES_USER", "matcha")
+	databaseConfig.Password = getEnvDefault("POSTGRES_PASSWORD", "")
+	databaseConfig.DBName = getEnvDefault("POSTGRES_DB", "matcha_db")
+	databaseConfig.SSLMode = getEnvDefault("POSTGRES_SSL", "")
+	databaseConfig.Schema = getEnvDefault("POSTGRES_SCHEMA", databaseConfig.User)
+}
+
+// Get database configurations from enviroment variables
+func GetDBConfig() DBConfig {
+	return databaseConfig
+}
+
+// Get database source name string, config is taken with `GetDBConfig()`
+func GetDSN() string {
+	dsnvals := map[string]string{
+		"host":     databaseConfig.Host,
+		"port":     databaseConfig.Port,
+		"dbname":   databaseConfig.DBName,
+		"user":     databaseConfig.User,
+		"password": databaseConfig.Password,
+	}
+
+	if len(databaseConfig.SSLMode) != 0 {
+		dsnvals["sslmode"] = databaseConfig.SSLMode
+	}
+
+	var sep, dsnstr string
+	for k, v := range dsnvals {
+		dsnstr += sep + k + "=" + v
+		sep = " "
+	}
+
+	return dsnstr
+}
+
+// Get database driver name string
+func GetDBDriverName() string {
+	return "postgres"
+}
 
 // Returns a value of enviroment variable with the name `varname`.
 // If variable isn't set, returns `deflt_value`
@@ -13,47 +65,4 @@ func getEnvDefault(varname string, deflt_value string) string {
 		return deflt_value
 	}
 	return varvalue
-}
-
-type DBConfig struct {
-	Host     string
-	Port     string
-	DBName   string
-	User     string
-	Password string
-	SSLMode  string
-}
-
-// Get database configurations from enviroment variables
-func GetDBConfig() DBConfig {
-	return DBConfig{
-		Host:     getEnvDefault("POSTGRES_HOST", "localhost"),
-		Port:     getEnvDefault("POSTGRES_PORT", "5432"),
-		User:     getEnvDefault("POSTGRES_USER", ""),
-		Password: getEnvDefault("POSTGRES_PASSWORD", ""),
-		DBName:   getEnvDefault("POSTGRES_DB", ""),
-		SSLMode:  getEnvDefault("POSTGRES_SSL", "disable"),
-	}
-}
-
-// Get database source name string, config is taken with `GetDBConfig()`
-func GetDSN() string {
-	dbconfig := GetDBConfig()
-	return fmt.Sprintf("host=%s port=%s dbname=%s user=%s password=%s sslmode=%s",
-		dbconfig.Host,
-		dbconfig.Port,
-		dbconfig.DBName,
-		dbconfig.User,
-		dbconfig.Password,
-		dbconfig.SSLMode)
-}
-
-// Get database driver name string
-func GetDBDriverName() string {
-	return "postgres"
-}
-
-// Get databse schema realm name string
-func GetDBSchemaName() string {
-	return GetDBConfig().User
 }

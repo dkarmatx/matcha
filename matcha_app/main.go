@@ -1,10 +1,9 @@
 package main
 
 import (
-	"matcha/dbcon"
-	"matcha/debug_api"
 	"matcha/install"
-	"matcha/logger"
+	"matcha/utils/dbcon"
+	"matcha/utils/logger"
 
 	"github.com/savsgio/atreugo/v11"
 )
@@ -15,7 +14,7 @@ func main() {
 
 	// Application installation
 	if err := install.InstallMatchaApplication(dbcon.Get(), logger.Get()); err != nil {
-		logger.Get().Fatalf("Exiting due fatal error has occured: Install(): %s", err.Error())
+		logger.Get().Fatalf("fatal: InstallMatchaApplication(): %v", err)
 	}
 
 	// Server configuration
@@ -25,11 +24,10 @@ func main() {
 		Logger: logger.Get(),
 	})
 
-	// Routing: `/debug/*`
-	debug_api.SetHandlers(app)
+	SetupApiV1Router(app)
 
 	// Launching application's listener
 	if err := app.ListenAndServe(); err != nil {
-		logger.Get().Fatalf("Exiting due fatal error has occured: ListenAndServe(): %s", err.Error())
+		logger.Get().Fatalf("fatal: ListenAndServe(): %v", err)
 	}
 }
