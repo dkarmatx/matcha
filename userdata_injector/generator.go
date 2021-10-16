@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
+	"strings"
 
 	"github.com/Pallinder/go-randomdata"
 )
@@ -35,12 +36,13 @@ func GenerateUsers(n int) []User {
 	for ; n > 0; n-- {
 		gender := RandomGender()
 		rgender := GenderToRandomDataGender(gender)
+		fname, sname, lname := randomdata.FirstName(rgender), randomdata.SillyName(), randomdata.LastName()
 		u := User{
 			Gender:    gender,
 			SexPref:   RandomGenderSet(),
-			Name:      randomdata.FirstName(rgender) + "_" + randomdata.LastName(),
+			Name:      fname + "_" + sname + "_" + lname,
 			Birthdate: randomdata.FullDateInRange("1940-01-01", "2001-01-01"),
-			Email:     randomdata.Email(),
+			Email:     strings.ToLower(fname+"."+sname+"."+lname) + "@dummies.com",
 			Bio:       randomdata.Paragraph(),
 		}
 		users = append(users, u)
