@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+html {
+    font: 14px 'IBM Plex Sans', sans-serif;
+    color: rgb(37, 37, 37)
+}
+
+body {
+    margin: 0;
+    width: 100%;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+div {
+    position: relative;
+}
+
+.scrollable-content {
+    position: absolute;
+    width: 100%;
+}
+
+.header {
+    margin: 0;
+    z-index: 1;
+    background-color: white;
+    position: fixed;
+    display: flex;
+    min-height: 50px;
+    justify-content: space-between;
+    padding: 5px 30px;
+    width: calc(100% - 2*30px);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.205);
+}
+
+.nav-logo {
+    min-width: 150px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo img {
+    height: 50%;
+}
+
+.nav-menu {
+    display: flex;
+    list-style-type: none;
+    justify-content: flex-end;
+}
+
+.nav-menu-item {
+    padding: 16px;
+}
+
+.ui-text {
+    text-transform: uppercase;
+    color: #808080;
+}
+
+.ui-text-active {
+    color: #fc8679;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    margin: 120px 30px;
+}
+
+.interactive {
+    min-width: 240px;
+    width: 320px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    margin: 0 32px 0 0;
+}
+
+.profile-photo {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: fit-content;
+}
+
+.profile-photo::after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
+.profile-photo-img {
+    position: absolute;
+    height: 100%;
+    margin-left: -25%;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.button {
+    margin: 0 0 10px 0;
+    flex-grow: 1;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 12px;
+    color: white;
+    border-radius: 6px;
+    background: linear-gradient(45deg, #fc8679 20.86%, #ffb168 89.33%);
+}
+
+.info {
+    display: flex;
+    width: fit-content;
+    max-width: 700px;
+    flex-direction: column;
+}
+
+.info-section {
+    margin: 0 0 32px 0;
+}
+
+.info-title {
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.info p {
+    margin: 0;
+}
+
+.main-info {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.main-info * {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#user-name, #user-age {
+    font-weight: bold;
+    font-size: 28px;
+}
+
+#user-age, #distance {
+    color: rgb(122, 122, 122);
+}
+
+#distance {
+    flex: 1 1 100%;
+}
+
+.profile-photo {
+    color: white;
+}
+
+.sec-info {
+    margin-bottom: 22px;
+}
+
+.sec-info td, .sec-info th {
+    table-layout: fixed;
+    vertical-align: top;
+    padding: 0 0 10px 0;
+}
+
+.sec-info th {
+    white-space: nowrap;
+    padding-right: 16px;
+    text-align: left;
+}
+
+.bio-info .info-title {
+    margin: 0 0 10px 0;
+}
+
+.tags-info .info-title {
+    margin: 0 0 10px 0;
+}
+
+#tags-container {
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.tags-container-item {
+    width: fit-content;
+    height: fit-content;
+    font: normal 12px 'IBM Plex Mono', monospace;
+    padding: 4px 8px;
+    margin: 0 5px 5px 0;
+
+    border-radius: 8px;
+    border: rgb(165, 165, 165) 2px solid;
+    color: rgb(90, 90, 90)
+}
+
+.tags-container-item::before {
+    content: "# ";
+}
+
+#footer {
+    position: relative;
+    width: calc(100% - 2*30px);
+    background: linear-gradient(101.89deg, #FF6868 35.43%, #FFC181 99.34%, #FFF172 114.09%);
+    color: rgba(255, 255, 255, 0.75);
+    padding: 30px;
+}
+
+#footer-menu-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.footer-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin: 0 20px 0 0;
+}
+
+.footer-menu-title {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: white;
+}
+
+.footer-menu-item {
+    display: block;
+    margin: 0 0 10px 0;
+}
+
+.mob-main-info {
+    display: none;
+}
+
+.mob-main-info {
+    flex-wrap: wrap;
+    background-color: rgba(0, 0, 0, 0.205);
+    position: absolute;
+    width: calc(100% - 2*10px);
+    bottom: 0px;
+    left: 0px;
+    padding: 10px 15px;
+}
+
+.mob-main-info * {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#mob-user-name, #mob-user-age {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+#mob-distance {
+    font-size: 12px;
+    flex: 1 1 100%;
+}
+
+.mob-sec-info {
+    display: none;
+    margin-bottom: 22px;
+}
+
+.mob-sec-info-item {
+    margin-bottom: 10px;
+}
+
+@media (max-width: 720px) {
+    html {
+        font-size: 12px;
+    }
+
+    .header {
+        width: calc(100% - 2*15px);
+        padding: 5px 15px;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .profile-photo {
+        min-width: 100vw;
+        margin-left: -15px;
+    }
+
+    .mob-main-info {
+        display: flex !important;
+    }
+
+    .main-info {
+        display: none !important;
+    }
+
+    .content {
+        flex-direction: column;
+        margin: 50px 15px 60px;
+    }
+
+    .interactive {
+        width: auto;
+        margin: 0 0 30px 0;
+    }
+
+    .buttons {
+        flex-direction: row;
+        margin-right: -5px;
+        width: calc(100% + 5px);
+    }
+
+    .button {
+        margin: 0 5px 0 0;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .mob-sec-info {
+        display: block;
+    }
+
+    .sec-info {
+        display: none;
+    }
+
+}
