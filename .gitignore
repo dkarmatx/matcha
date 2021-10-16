@@ -16,3 +16,4 @@
 
 .vscode/
 volumes/
+.DS_Store
